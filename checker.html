@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetPlay Checker - Verificador de Saldos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #002361 0%, #00133b 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #002361;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .upload-section {
+            background: #fff;
+            padding: 35px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .upload-area {
+            border: 3px dashed #3cb4e5;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: #002361;
+            background: #f0f4ff;
+        }
+
+        .upload-area.dragover {
+            border-color: #28A745;
+            background: #f0fff4;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            color: #3cb4e5;
+            margin-bottom: 20px;
+        }
+
+        .upload-text {
+            font-size: 18px;
+            color: #002361;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            font-size: 14px;
+            color: #666;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            margin-top: 20px;
+            background: #fafafa;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3cb4e5;
+            background: #fff;
+        }
+
+        .format-info {
+            background: linear-gradient(135deg, #3cb4e5 0%, #002361 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .format-info h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .format-examples {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #28A745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.6);
+        }
+
+        .btn-check:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card i {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card.total i { color: #3cb4e5; }
+        .stat-card.success i { color: #28A745; }
+        .stat-card.fail i { color: #dc3545; }
+        .stat-card.checking i { color: #ffc107; }
+
+        .stat-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: #002361;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .results-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .results-title {
+            color: #002361;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-export {
+            background: #3cb4e5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-export:hover {
+            background: #002361;
+        }
+
+        .result-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card.success {
+            border-color: #28A745;
+            background: linear-gradient(135deg, #f0fff4 0%, #e8f5e9 100%);
+        }
+
+        .result-card.fail {
+            border-color: #dc3545;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffebee 100%);
+        }
+
+        .result-card.checking {
+            border-color: #ffc107;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff9c4 100%);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); }
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .result-user {
+            font-weight: 700;
+            font-size: 18px;
+            color: #002361;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-status {
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: #28A745;
+            color: white;
+        }
+
+        .status-fail {
+            background: #dc3545;
+            color: white;
+        }
+
+        .status-checking {
+            background: #ffc107;
+            color: #000;
+        }
+
+        .result-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+        }
+
+        .info-item i {
+            font-size: 24px;
+            color: #3cb4e5;
+        }
+
+        .info-label {
+            font-size: 11px;
+            color: #666;
+            display: block;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #002361;
+        }
+
+        .saldo-grande {
+            font-size: 28px !important;
+            color: #28A745 !important;
+        }
+
+        .result-footer {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3cb4e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #28A745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .result-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <i class="fas fa-shield-halved"></i>
+                BetPlay Checker
+            </h1>
+            <p>Verifica el saldo de tus cuentas (MODO DEMO - Sin backend real)</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <div class="upload-text">Arrastra tu archivo de combos aquí</div>
+                <div class="upload-subtext">o haz clic para seleccionar un archivo .txt</div>
+                <input type="file" id="fileInput" accept=".txt">
+            </div>
+
+            <div style="text-align: center; margin: 20px 0; color: #666; font-weight: 600;">
+                - O -
+            </div>
+
+            <textarea 
+                id="combosInput" 
+                placeholder="Pega tus combos aquí (Usuario/Cédula:Contraseña)&#10;&#10;Ejemplos:&#10;1234567890:mipassword123&#10;juan@email.com:pass456&#10;usuario123:secreto789"
+            ></textarea>
+
+            <div class="format-info">
+                <h3>
+                    <i class="fas fa-info-circle"></i>
+                    Formatos Aceptados
+                </h3>
+                <div class="format-examples">
+                    ✓ Cédula:Contraseña → 1234567890:mipass123<br>
+                    ✓ Usuario:Contraseña → juanperez:secreto456<br>
+                    ✓ Email:Contraseña → juan@email.com:pass789<br>
+                    ✓ Con separador | → usuario|contraseña<br>
+                    ✓ Con separador ; → usuario;contraseña
+                </div>
+                <p style="margin-top: 15px; font-size: 13px;">
+                    <i class="fas fa-info-circle"></i> Esta es una versión DEMO sin backend real
+                </p>
+            </div>
+
+            <button class="btn-check" id="btnStartCheck">
+                <i class="fas fa-rocket"></i> Iniciar Verificación (DEMO)
+            </button>
+        </div>
+
+        <div class="stats-container" id="statsContainer" style="display: none;">
+            <div class="stat-card total">
+                <i class="fas fa-list-check"></i>
+                <div class="stat-value" id="totalCombos">0</div>
+                <div class="stat-label">Total Combos</div>
+            </div>
+            <div class="stat-card checking">
+                <i class="fas fa-spinner fa-spin"></i>
+                <div class="stat-value" id="checking">0</div>
+                <div class="stat-label">Verificando</div>
+            </div>
+            <div class="stat-card success">
+                <i class="fas fa-circle-check"></i>
+                <div class="stat-value" id="withBalance">0</div>
+                <div class="stat-label">Con Saldo</div>
+            </div>
+            <div class="stat-card fail">
+                <i class="fas fa-circle-xmark"></i>
+                <div class="stat-value" id="noBalance">0</div>
+                <div class="stat-label">Sin Saldo</div>
+            </div>
+        </div>
+
+        <div id="progressContainer" style="display: none;">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <div class="results-header">
+                <h2 class="results-title">
+                    <i class="fas fa-clipboard-list"></i>
+                    Resultados de Verificación
+                </h2>
+                <button class="btn-export" id="btnExport">
+                    <i class="fas fa-download"></i> Exportar Válidas
+                </button>
+            </div>
+            <div id="resultsList"></div>
+        </div>
+    </div>
+
+    <script>
+        let totalCombos = 0;
+        let checking = 0;
+        let withBalance = 0;
+        let noBalance = 0;
+        let validAccounts = [];
+
+        // Upload area
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        function handleFile(file) {
+            if (!file.name.endsWith('.txt')) {
+                alert('Por favor sube un archivo .txt');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('combosInput').value = e.target.result;
+                alert(`✅ Archivo cargado: ${file.name}\nCombos: ${e.target.result.split('\n').filter(l => l.trim()).length}`);
+            };
+            reader.readAsText(file);
+        }
+
+        // Iniciar verificación
+        document.getElementById('btnStartCheck').addEventListener('click', async function() {
+            const combosText = document.getElementById('combosInput').value.trim();
+            
+            if (!combosText) {
+                alert('⚠️ Por favor ingresa o sube una lista de combos');
+                return;
+            }
+
+            // Parsear combos
+            const lines = combosText.split('\n').filter(line => line.trim());
+            const combos = [];
+
+            for (const line of lines) {
+                const separators = /[:|;,]/;
+                const parts = line.split(separators);
+                
+                if (parts.length >= 2) {
+                    const usuario = parts[0].trim();
+                    const password = parts.slice(1).join('').trim();
+                    
+                    if (usuario && password) {
+                        combos.push({ usuario, password });
+                    }
+                }
+            }
+
+            if (combos.length === 0) {
+                alert('❌ No se encontraron combos válidos');
+                return;
+            }
+
+            if (!confirm(`✅ Se encontraron ${combos.length} combos\n\n¿Iniciar verificación?`)) {
+                return;
+            }
+
+            // Reset
+            totalCombos = combos.length;
+            checking = 0;
+            withBalance = 0;
+            noBalance = 0;
+            validAccounts = [];
+
+            // Mostrar UI
+            document.getElementById('statsContainer').style.display = 'grid';
+            document.getElementById('progressContainer').style.display = 'block';
+            document.getElementById('resultsContainer').classList.add('show');
+            document.getElementById('resultsList').innerHTML = '';
+            
+            updateStats();
+
+            this.disabled = true;
+            this.innerHTML = '<span class="loading-spinner"></span> Verificando...';
+
+            // Verificar cada combo
+            for (let i = 0; i < combos.length; i++) {
+                const combo = combos[i];
+                await checkAccountDemo(combo.usuario, combo.password);
+                
+                const progress = Math.round(((i + 1) / totalCombos) * 100);
+                document.getElementById('progressBar').style.width = progress + '%';
+                document.getElementById('progressBar').textContent = progress + '%';
+                
+                await new Promise(resolve => setTimeout(resolve, 800));
+            }
+
+            this.disabled = false;
+            this.innerHTML = '<i class="fas fa-rocket"></i> Iniciar Verificación (DEMO)';
+
+            alert(`✅ Verificación completada!\n\n📊 Total: ${totalCombos}\n✔️ Con saldo: ${withBalance}\n❌ Sin saldo: ${noBalance}`);
+        });
+
+        // Simulación de verificación (40% con saldo)
+        async function checkAccountDemo(usuario, password) {
+            checking++;
+            updateStats();
+
+            const checkingCard = createCheckingCard(usuario);
+            document.getElementById('resultsList').insertBefore(checkingCard, document.getElementById('resultsList').firstChild);
+
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            checkingCard.remove();
+            checking--;
+
+            // Simulación: 40% tienen saldo
+            const tieneSaldo = Math.random() < 0.4;
+
+            if (tieneSaldo) {
+                withBalance++;
+                const saldo = Math.floor(Math.random() * 8000000) + 50000;
+                const data = {
+                    success: true,
+                    saldo: saldo.toLocaleString('es-CO'),
+                    usuario: usuario,
+                    nombre: 'Usuario Demo',
+                    email: usuario.includes('@') ? usuario : `${usuario.substring(0,3)}***@gmail.com`
+                };
+                validAccounts.push({ usuario, password, ...data });
+                createSuccessCard(data, usuario, password);
+            } else {
+                noBalance++;
+                createFailCard(usuario, 'Credenciales incorrectas o sin saldo');
+            }
+
+            updateStats();
+        }
+
+        function createCheckingCard(usuario) {
+            const card = document.createElement('div');
+            card.className = 'result-card checking';
+            card.innerHTML = `
+                <div class="result-header">
+                    <div class="result-user">
+                        <i class="fas fa-user-clock"></i>
+                        ${usuario}
+                    </div>
+                    <span class="result-status status-checking">
+                        <i class="fas fa-spinner fa-spin"></i> Verificando
+                    </span>
+                </div>
+                <div class="result-footer">
+                    <i class="fas fa-clock"></i>
+                    Consultando saldo...
+                </div>
+            `;
+            return card;
+        }
+
+        function createSuccessCard(data, usuario, password) {
+            const card = document.createElement('div');
+            card.className = 'result-card success';
+            card.innerHTML = `
+                <div class="result-header">
+                    <div class="result-user">
+                        <i class="fas fa-user-check"></i>
+                        ${usuario}
+                    </div>
+                    <span class="result-status status-success">
+                        <i class="fas fa-check"></i> CON SALDO
+                    </span>
+                </div>
+                <div class="result-info">
+                    <div class="info-item">
+                        <i class="fas fa-wallet"></i>
+                        <div>
+                            <span class="info-label">Saldo</span>
+                            <div class="info-value saldo-grande">$${data.saldo}</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-id-card"></i>
+                        <div>
+                            <span class="info-label">Usuario</span>
+                            <div class="info-value">${usuario}</div>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-key"></i>
+                        <div>
+                            <span class="info-label">Password</span>
+                            <div class="info-value" style="font-size: 14px;">${password}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="result-footer">
+                    <i class="fas fa-check-circle"></i>
+                    Verificado - ${new Date().toLocaleTimeString()}
+                </div>
+            `;
+            document.getElementById('resultsList').insertBefore(card, document.getElementById('resultsList').firstChild);
+        }
+
+        function createFailCard(usuario, message) {
+            const card = document.createElement('div');
+            card.className = 'result-card fail';
+            card.innerHTML = `
+                <div class="result-header">
+                    <div class="result-user">
+                        <i class="fas fa-user-xmark"></i>
+                        ${usuario}
+                    </div>
+                    <span class="result-status status-fail">
+                        <i class="fas fa-times"></i> SIN SALDO
+                    </span>
+                </div>
+                <div class="result-footer">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    ${message}
+                </div>
+            `;
+            document.getElementById('resultsList').appendChild(card);
+        }
+
+        function updateStats() {
+            document.getElementById('totalCombos').textContent = totalCombos;
+            document.getElementById('checking').textContent = checking;
+            document.getElementById('withBalance').textContent = withBalance;
+            document.getElementById('noBalance').textContent = noBalance;
+        }
+
+        // Exportar
+        document.getElementById('btnExport').addEventListener('click', function() {
+            if (validAccounts.length === 0) {
+                alert('❌ No hay cuentas con saldo para exportar');
+                return;
+            }
+
+            let txt = '=== CUENTAS BETPLAY CON SALDO ===\n\n';
+            txt += `Total: ${validAccounts.length}\n`;
+            txt += `Fecha: ${new Date().toLocaleString()}\n\n`;
+            
+            validAccounts.forEach((acc, i) => {
+                txt += `[${i + 1}] ${acc.usuario}:${acc.password}\n`;
+                txt += `Saldo: $${acc.saldo}\n\n`;
+            });
+
+            const blob = new Blob([txt], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `betplay_validas_${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            alert(`✅ ${validAccounts.length} cuentas exportadas`);
+        });
+    </script>
+</body>
+</html>

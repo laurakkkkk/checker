@@ -34,18 +34,19 @@
             text-align: center;
         }
 
+        .betplay-logo {
+            width: 200px;
+            margin-bottom: 15px;
+        }
+
         .header h1 {
             color: #002361;
-            font-size: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+            font-size: 28px;
+            margin-bottom: 10px;
         }
 
         .header p {
             color: #666;
-            margin-top: 10px;
             font-size: 14px;
         }
 
@@ -84,18 +85,6 @@
             margin-bottom: 20px;
         }
 
-        .upload-text {
-            font-size: 18px;
-            color: #002361;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .upload-subtext {
-            font-size: 14px;
-            color: #666;
-        }
-
         #fileInput {
             display: none;
         }
@@ -113,25 +102,12 @@
             background: #fafafa;
         }
 
-        textarea:focus {
-            outline: none;
-            border-color: #3cb4e5;
-            background: #fff;
-        }
-
         .format-info {
             background: linear-gradient(135deg, #3cb4e5 0%, #002361 100%);
             color: white;
             padding: 20px;
             border-radius: 10px;
             margin-top: 15px;
-        }
-
-        .format-info h3 {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .format-examples {
@@ -154,10 +130,9 @@
             border-radius: 10px;
             cursor: pointer;
             width: 100%;
-            transition: all 0.3s;
-            font-family: 'Montserrat', sans-serif;
             margin-top: 20px;
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+            transition: all 0.3s;
         }
 
         .btn-check:hover {
@@ -168,8 +143,6 @@
         .btn-check:disabled {
             background: #ccc;
             cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
         }
 
         .stats-container {
@@ -206,7 +179,6 @@
             font-size: 42px;
             font-weight: 700;
             color: #002361;
-            line-height: 1;
         }
 
         .stat-label {
@@ -214,6 +186,27 @@
             color: #666;
             margin-top: 10px;
             font-weight: 600;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #28A745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
         }
 
         .results-container {
@@ -237,19 +230,11 @@
             border-bottom: 2px solid #e0e0e0;
         }
 
-        .results-title {
-            color: #002361;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
         .btn-export {
             background: #3cb4e5;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
@@ -266,10 +251,6 @@
             padding: 20px;
             margin-bottom: 15px;
             transition: all 0.3s;
-        }
-
-        .result-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .result-card.success {
@@ -304,9 +285,6 @@
             font-weight: 700;
             font-size: 18px;
             color: #002361;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .result-status {
@@ -335,30 +313,21 @@
         .result-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            gap: 15px;
             margin-top: 15px;
         }
 
         .info-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
             padding: 12px;
             background: rgba(255, 255, 255, 0.7);
             border-radius: 8px;
         }
 
-        .info-item i {
-            font-size: 24px;
-            color: #3cb4e5;
-        }
-
         .info-label {
             font-size: 11px;
             color: #666;
-            display: block;
             text-transform: uppercase;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
         }
 
         .info-value {
@@ -368,19 +337,8 @@
         }
 
         .saldo-grande {
-            font-size: 28px !important;
+            font-size: 32px !important;
             color: #28A745 !important;
-        }
-
-        .result-footer {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            font-size: 13px;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .loading-spinner {
@@ -398,32 +356,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        .progress-bar-container {
-            background: #e0e0e0;
-            border-radius: 10px;
-            height: 30px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, #28A745, #20c997);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
         @media (max-width: 768px) {
             .result-info {
                 grid-template-columns: 1fr;
             }
-            
             .stats-container {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -433,18 +369,22 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>
-                <i class="fas fa-shield-halved"></i>
-                BetPlay Checker
-            </h1>
-            <p>Verifica el saldo de tus cuentas (MODO DEMO - Sin backend real)</p>
+            <h1>🔍 BetPlay Account Checker</h1>
+            <p>Verifica tus cuentas y consulta saldos disponibles</p>
+            <p style="color: #dc3545; margin-top: 10px; font-size: 12px;">
+                ⚠️ VERSIÓN DEMO - Simulación sin conexión real a BetPlay
+            </p>
         </div>
 
         <div class="upload-section">
             <div class="upload-area" id="uploadArea">
                 <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                <div class="upload-text">Arrastra tu archivo de combos aquí</div>
-                <div class="upload-subtext">o haz clic para seleccionar un archivo .txt</div>
+                <div style="font-size: 18px; font-weight: 600; color: #002361; margin-bottom: 10px;">
+                    Arrastra tu archivo de combos aquí
+                </div>
+                <div style="font-size: 14px; color: #666;">
+                    o haz clic para seleccionar un archivo .txt
+                </div>
                 <input type="file" id="fileInput" accept=".txt">
             </div>
 
@@ -454,36 +394,35 @@
 
             <textarea 
                 id="combosInput" 
-                placeholder="Pega tus combos aquí (Usuario/Cédula:Contraseña)&#10;&#10;Ejemplos:&#10;1234567890:mipassword123&#10;juan@email.com:pass456&#10;usuario123:secreto789"
+                placeholder="Pega tus combos aquí&#10;&#10;Formato: Usuario/Cédula:Contraseña&#10;&#10;Ejemplos:&#10;1234567890:password123&#10;juan@email.com:mipass456&#10;carlos99:secreto789"
             ></textarea>
 
             <div class="format-info">
-                <h3>
-                    <i class="fas fa-info-circle"></i>
-                    Formatos Aceptados
+                <h3 style="margin-bottom: 10px;">
+                    <i class="fas fa-info-circle"></i> Formatos Aceptados
                 </h3>
                 <div class="format-examples">
-                    ✓ Cédula:Contraseña → 1234567890:mipass123<br>
-                    ✓ Usuario:Contraseña → juanperez:secreto456<br>
-                    ✓ Email:Contraseña → juan@email.com:pass789<br>
-                    ✓ Con separador | → usuario|contraseña<br>
-                    ✓ Con separador ; → usuario;contraseña
+                    ✓ Cédula:Contraseña → 1234567890:pass123<br>
+                    ✓ Usuario:Contraseña → usuario123:secreto456<br>
+                    ✓ Email:Contraseña → user@email.com:pass789<br>
+                    ✓ Con separador | → usuario|password<br>
+                    ✓ Con separador ; → usuario;password
                 </div>
                 <p style="margin-top: 15px; font-size: 13px;">
-                    <i class="fas fa-info-circle"></i> Esta es una versión DEMO sin backend real
+                    <i class="fas fa-shield-alt"></i> Simulación de verificación - Sin conexión real
                 </p>
             </div>
 
             <button class="btn-check" id="btnStartCheck">
-                <i class="fas fa-rocket"></i> Iniciar Verificación (DEMO)
+                <i class="fas fa-play"></i> Iniciar Verificación
             </button>
         </div>
 
         <div class="stats-container" id="statsContainer" style="display: none;">
             <div class="stat-card total">
-                <i class="fas fa-list-check"></i>
+                <i class="fas fa-list"></i>
                 <div class="stat-value" id="totalCombos">0</div>
-                <div class="stat-label">Total Combos</div>
+                <div class="stat-label">Total</div>
             </div>
             <div class="stat-card checking">
                 <i class="fas fa-spinner fa-spin"></i>
@@ -491,12 +430,12 @@
                 <div class="stat-label">Verificando</div>
             </div>
             <div class="stat-card success">
-                <i class="fas fa-circle-check"></i>
+                <i class="fas fa-check-circle"></i>
                 <div class="stat-value" id="withBalance">0</div>
                 <div class="stat-label">Con Saldo</div>
             </div>
             <div class="stat-card fail">
-                <i class="fas fa-circle-xmark"></i>
+                <i class="fas fa-times-circle"></i>
                 <div class="stat-value" id="noBalance">0</div>
                 <div class="stat-label">Sin Saldo</div>
             </div>
@@ -510,9 +449,8 @@
 
         <div class="results-container" id="resultsContainer">
             <div class="results-header">
-                <h2 class="results-title">
-                    <i class="fas fa-clipboard-list"></i>
-                    Resultados de Verificación
+                <h2 style="color: #002361; font-size: 24px;">
+                    <i class="fas fa-clipboard-list"></i> Resultados
                 </h2>
                 <button class="btn-export" id="btnExport">
                     <i class="fas fa-download"></i> Exportar Válidas
@@ -529,12 +467,11 @@
         let noBalance = 0;
         let validAccounts = [];
 
-        // Upload area
         const uploadArea = document.getElementById('uploadArea');
         const fileInput = document.getElementById('fileInput');
 
         uploadArea.addEventListener('click', () => fileInput.click());
-
+        
         uploadArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadArea.classList.add('dragover');
@@ -547,53 +484,47 @@
         uploadArea.addEventListener('drop', (e) => {
             e.preventDefault();
             uploadArea.classList.remove('dragover');
-            const file = e.dataTransfer.files[0];
-            if (file) handleFile(file);
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
         });
 
         fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) handleFile(file);
+            if (e.target.files[0]) handleFile(e.target.files[0]);
         });
 
         function handleFile(file) {
             if (!file.name.endsWith('.txt')) {
-                alert('Por favor sube un archivo .txt');
+                alert('❌ Por favor sube un archivo .txt');
                 return;
             }
             
             const reader = new FileReader();
             reader.onload = (e) => {
-                document.getElementById('combosInput').value = e.target.result;
-                alert(`✅ Archivo cargado: ${file.name}\nCombos: ${e.target.result.split('\n').filter(l => l.trim()).length}`);
+                const content = e.target.result;
+                document.getElementById('combosInput').value = content;
+                const lines = content.split('\n').filter(l => l.trim()).length;
+                alert(`✅ Archivo cargado: ${file.name}\n📊 Combos detectados: ${lines}`);
             };
             reader.readAsText(file);
         }
 
-        // Iniciar verificación
         document.getElementById('btnStartCheck').addEventListener('click', async function() {
             const combosText = document.getElementById('combosInput').value.trim();
             
             if (!combosText) {
-                alert('⚠️ Por favor ingresa o sube una lista de combos');
+                alert('⚠️ Por favor ingresa o sube combos\n\nFormato: usuario:contraseña');
                 return;
             }
 
-            // Parsear combos
             const lines = combosText.split('\n').filter(line => line.trim());
             const combos = [];
 
             for (const line of lines) {
-                const separators = /[:|;,]/;
-                const parts = line.split(separators);
-                
+                const parts = line.split(/[:|;,]/);
                 if (parts.length >= 2) {
-                    const usuario = parts[0].trim();
-                    const password = parts.slice(1).join('').trim();
-                    
-                    if (usuario && password) {
-                        combos.push({ usuario, password });
-                    }
+                    combos.push({
+                        usuario: parts[0].trim(),
+                        password: parts.slice(1).join('').trim()
+                    });
                 }
             }
 
@@ -602,7 +533,7 @@
                 return;
             }
 
-            if (!confirm(`✅ Se encontraron ${combos.length} combos\n\n¿Iniciar verificación?`)) {
+            if (!confirm(`✅ Se encontraron ${combos.length} combos\n\n¿Deseas iniciar la verificación?`)) {
                 return;
             }
 
@@ -613,7 +544,6 @@
             noBalance = 0;
             validAccounts = [];
 
-            // Mostrar UI
             document.getElementById('statsContainer').style.display = 'grid';
             document.getElementById('progressContainer').style.display = 'block';
             document.getElementById('resultsContainer').classList.add('show');
@@ -624,144 +554,91 @@
             this.disabled = true;
             this.innerHTML = '<span class="loading-spinner"></span> Verificando...';
 
-            // Verificar cada combo
             for (let i = 0; i < combos.length; i++) {
-                const combo = combos[i];
-                await checkAccountDemo(combo.usuario, combo.password);
+                await checkAccount(combos[i].usuario, combos[i].password);
                 
                 const progress = Math.round(((i + 1) / totalCombos) * 100);
                 document.getElementById('progressBar').style.width = progress + '%';
                 document.getElementById('progressBar').textContent = progress + '%';
                 
-                await new Promise(resolve => setTimeout(resolve, 800));
+                await new Promise(resolve => setTimeout(resolve, 1000));
             }
 
             this.disabled = false;
-            this.innerHTML = '<i class="fas fa-rocket"></i> Iniciar Verificación (DEMO)';
+            this.innerHTML = '<i class="fas fa-play"></i> Iniciar Verificación';
 
             alert(`✅ Verificación completada!\n\n📊 Total: ${totalCombos}\n✔️ Con saldo: ${withBalance}\n❌ Sin saldo: ${noBalance}`);
         });
 
-        // Simulación de verificación (40% con saldo)
-        async function checkAccountDemo(usuario, password) {
+        async function checkAccount(usuario, password) {
             checking++;
             updateStats();
 
-            const checkingCard = createCheckingCard(usuario);
-            document.getElementById('resultsList').insertBefore(checkingCard, document.getElementById('resultsList').firstChild);
-
-            await new Promise(resolve => setTimeout(resolve, 500));
-
-            checkingCard.remove();
-            checking--;
-
-            // Simulación: 40% tienen saldo
-            const tieneSaldo = Math.random() < 0.4;
-
-            if (tieneSaldo) {
-                withBalance++;
-                const saldo = Math.floor(Math.random() * 8000000) + 50000;
-                const data = {
-                    success: true,
-                    saldo: saldo.toLocaleString('es-CO'),
-                    usuario: usuario,
-                    nombre: 'Usuario Demo',
-                    email: usuario.includes('@') ? usuario : `${usuario.substring(0,3)}***@gmail.com`
-                };
-                validAccounts.push({ usuario, password, ...data });
-                createSuccessCard(data, usuario, password);
-            } else {
-                noBalance++;
-                createFailCard(usuario, 'Credenciales incorrectas o sin saldo');
-            }
-
-            updateStats();
-        }
-
-        function createCheckingCard(usuario) {
             const card = document.createElement('div');
             card.className = 'result-card checking';
             card.innerHTML = `
                 <div class="result-header">
-                    <div class="result-user">
-                        <i class="fas fa-user-clock"></i>
-                        ${usuario}
-                    </div>
+                    <div class="result-user"><i class="fas fa-user"></i> ${usuario}</div>
                     <span class="result-status status-checking">
                         <i class="fas fa-spinner fa-spin"></i> Verificando
                     </span>
                 </div>
-                <div class="result-footer">
-                    <i class="fas fa-clock"></i>
-                    Consultando saldo...
-                </div>
             `;
-            return card;
-        }
+            document.getElementById('resultsList').insertBefore(card, document.getElementById('resultsList').firstChild);
 
-        function createSuccessCard(data, usuario, password) {
-            const card = document.createElement('div');
-            card.className = 'result-card success';
-            card.innerHTML = `
-                <div class="result-header">
-                    <div class="result-user">
-                        <i class="fas fa-user-check"></i>
-                        ${usuario}
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            card.remove();
+            checking--;
+
+            // Simulación: 35% con saldo
+            const tieneSaldo = Math.random() < 0.35;
+
+            if (tieneSaldo) {
+                withBalance++;
+                const saldo = Math.floor(Math.random() * 10000000) + 100000;
+                validAccounts.push({ usuario, password, saldo });
+                
+                const successCard = document.createElement('div');
+                successCard.className = 'result-card success';
+                successCard.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-user"><i class="fas fa-check-circle"></i> ${usuario}</div>
+                        <span class="result-status status-success">✓ CON SALDO</span>
                     </div>
-                    <span class="result-status status-success">
-                        <i class="fas fa-check"></i> CON SALDO
-                    </span>
-                </div>
-                <div class="result-info">
-                    <div class="info-item">
-                        <i class="fas fa-wallet"></i>
-                        <div>
-                            <span class="info-label">Saldo</span>
-                            <div class="info-value saldo-grande">$${data.saldo}</div>
+                    <div class="result-info">
+                        <div class="info-item">
+                            <div class="info-label">💰 Saldo Disponible</div>
+                            <div class="info-value saldo-grande">$${saldo.toLocaleString('es-CO')}</div>
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-id-card"></i>
-                        <div>
-                            <span class="info-label">Usuario</span>
+                        <div class="info-item">
+                            <div class="info-label">👤 Usuario/Cédula</div>
                             <div class="info-value">${usuario}</div>
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-key"></i>
-                        <div>
-                            <span class="info-label">Password</span>
+                        <div class="info-item">
+                            <div class="info-label">🔑 Contraseña</div>
                             <div class="info-value" style="font-size: 14px;">${password}</div>
                         </div>
                     </div>
-                </div>
-                <div class="result-footer">
-                    <i class="fas fa-check-circle"></i>
-                    Verificado - ${new Date().toLocaleTimeString()}
-                </div>
-            `;
-            document.getElementById('resultsList').insertBefore(card, document.getElementById('resultsList').firstChild);
-        }
-
-        function createFailCard(usuario, message) {
-            const card = document.createElement('div');
-            card.className = 'result-card fail';
-            card.innerHTML = `
-                <div class="result-header">
-                    <div class="result-user">
-                        <i class="fas fa-user-xmark"></i>
-                        ${usuario}
+                `;
+                document.getElementById('resultsList').insertBefore(successCard, document.getElementById('resultsList').firstChild);
+            } else {
+                noBalance++;
+                const failCard = document.createElement('div');
+                failCard.className = 'result-card fail';
+                failCard.innerHTML = `
+                    <div class="result-header">
+                        <div class="result-user"><i class="fas fa-times-circle"></i> ${usuario}</div>
+                        <span class="result-status status-fail">✗ SIN SALDO</span>
                     </div>
-                    <span class="result-status status-fail">
-                        <i class="fas fa-times"></i> SIN SALDO
-                    </span>
-                </div>
-                <div class="result-footer">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    ${message}
-                </div>
-            `;
-            document.getElementById('resultsList').appendChild(card);
+                    <p style="color: #dc3545; margin-top: 10px; font-size: 14px;">
+                        Credenciales incorrectas o cuenta sin saldo
+                    </p>
+                `;
+                document.getElementById('resultsList').appendChild(failCard);
+            }
+
+            updateStats();
         }
 
         function updateStats() {
@@ -771,20 +648,22 @@
             document.getElementById('noBalance').textContent = noBalance;
         }
 
-        // Exportar
         document.getElementById('btnExport').addEventListener('click', function() {
             if (validAccounts.length === 0) {
                 alert('❌ No hay cuentas con saldo para exportar');
                 return;
             }
 
-            let txt = '=== CUENTAS BETPLAY CON SALDO ===\n\n';
-            txt += `Total: ${validAccounts.length}\n`;
+            let txt = '═══════════════════════════════════════\n';
+            txt += '     CUENTAS BETPLAY CON SALDO\n';
+            txt += '═══════════════════════════════════════\n\n';
+            txt += `Total de cuentas válidas: ${validAccounts.length}\n`;
             txt += `Fecha: ${new Date().toLocaleString()}\n\n`;
             
             validAccounts.forEach((acc, i) => {
-                txt += `[${i + 1}] ${acc.usuario}:${acc.password}\n`;
-                txt += `Saldo: $${acc.saldo}\n\n`;
+                txt += `[${i + 1}] ────────────────────\n`;
+                txt += `Combo: ${acc.usuario}:${acc.password}\n`;
+                txt += `Saldo: $${acc.saldo.toLocaleString('es-CO')} COP\n\n`;
             });
 
             const blob = new Blob([txt], { type: 'text/plain' });
@@ -795,7 +674,7 @@
             a.click();
             URL.revokeObjectURL(url);
 
-            alert(`✅ ${validAccounts.length} cuentas exportadas`);
+            alert(`✅ Exportado: ${validAccounts.length} cuentas válidas`);
         });
     </script>
 </body>
